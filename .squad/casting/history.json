@@ -1,0 +1,11 @@
+{
+  "assignments": [
+    {
+      "assignment_id": "aib-cc-001",
+      "universe": "the-usual-suspects",
+      "timestamp": "2026-04-21T00:00:00Z",
+      "agents": ["Keaton", "McManus", "Fenster", "Hockney"],
+      "reason": "Initial team casting for Contact Center Resource Portal"
+    }
+  ]
+}
