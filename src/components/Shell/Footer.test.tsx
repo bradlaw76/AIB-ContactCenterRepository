@@ -5,15 +5,6 @@ import { renderWithProviders } from '../../test-utils'
 
 const fetchMock = vi.fn()
 
-function mockJsonResponse(body: unknown): Response {
-  return {
-    ok: true,
-    status: 200,
-    statusText: 'OK',
-    json: async () => body,
-  } as Response
-}
-
 function setupProviderFetch() {
   fetchMock.mockImplementation((input: RequestInfo | URL) => {
     const url = typeof input === 'string' ? input : input.toString()

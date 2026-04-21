@@ -55,7 +55,7 @@ describe('ToastProvider and useToast', () => {
   })
 
   it('removes a specific toast immediately when removeToast is called', async () => {
-    vi.spyOn(globalThis.crypto, 'randomUUID').mockReturnValue('toast-1')
+    vi.spyOn(globalThis.crypto, 'randomUUID').mockReturnValue('12345678-1234-4567-89ab-cdef01234567' as ReturnType<Crypto['randomUUID']>)
 
     render(
       <ToastProvider>

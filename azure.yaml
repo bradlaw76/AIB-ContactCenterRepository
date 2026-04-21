@@ -1,0 +1,53 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: aib-contact-center-portal
+
+metadata:
+  template: aib-contact-center-portal@1.0.0
+  description: >
+    AIB Contact Center Resource Portal — React 19 SPA + Azure Functions v4 API +
+    Azure Blob Storage. Authentication via Microsoft Entra ID (SWA built-in).
+
+services:
+  web:
+    project: .
+    language: js
+    host: staticwebapp
+
+  api:
+    project: api
+    language: js
+    host: function
+
+infra:
+  provider: bicep
+  path: .azure
+  module: main
+
+hooks:
+  preprovision:
+    shell: sh
+    run: |
+      echo "Pre-provision: verifying Node version..."
+      node --version
+
+  prebuild:
+    shell: sh
+    run: |
+      echo "Installing frontend dependencies..."
+      npm ci
+
+  build:
+    shell: sh
+    run: |
+      echo "Building frontend (Vite)..."
+      npm run build
+
+  postbuild:
+    shell: sh
+    run: |
+      echo "Installing API dependencies..."
+      cd api && npm ci
+
+pipeline:
+  provider: github

@@ -63,8 +63,8 @@ interface ManifestResult {
 }
 
 function getOctokit(): Octokit {
-  const token = process.env['GITHUB_TOKEN'];
-  if (!token) throw new Error('GITHUB_TOKEN environment variable is not set');
+  const token = process.env['MANIFEST_GITHUB_TOKEN'] ?? process.env['GITHUB_TOKEN'];
+  if (!token) throw new Error('MANIFEST_GITHUB_TOKEN environment variable is not set');
   return new Octokit({ auth: token });
 }
 

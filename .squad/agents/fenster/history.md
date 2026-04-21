@@ -72,3 +72,49 @@ content-index.json               — initial empty manifest at repo root
 
 **Allowed file types:** pdf, docx, pptx, xlsx, mp4, webm, jpg, jpeg, png, gif, svg
 **Max file size:** 100 MB (104,857,600 bytes)
+
+### Azure IaC Generation (2026-04-21)
+
+**Files created:**
+```
+.azure/main.bicep              — Bicep IaC (SWA + Functions + Storage + App Insights + Managed Identity)
+.azure/main.parameters.json   — Parameters with Key Vault secret references
+.azure/README.md               — Deployment guide (prerequisites, azd up, cleanup)
+azure.yaml                     — Azure Developer CLI manifest (services, infra, hooks)
+```
+
+**Bicep patterns used:**
+- `uniqueString(resourceGroup().id, projectName)` with `take(..., 8)` for globally unique resource names
+- `storageAccount.listKeys().keys[0].value` for inline storage connection string
+- `UserAssigned` managed identity attached to Function App with `Storage Blob Data Contributor` role assignment
+- `swaBackendLink` (`Microsoft.Web/staticSites/linkedBackends`) to wire Functions into the SWA
+- `appsettings` sub-resource on Static Web App for `AAD_CLIENT_ID` / `AAD_CLIENT_SECRET`
+- All secrets parameterized (`@secure()`) — no literals in template
+
+**Validation:** `az bicep build` passed — zero errors, one PATH preference warning only.
+
+**What's next:**
+- Phase 6.3 (Bradley): Set GitHub secrets (AZURE_CLIENT_ID, GITHUB_TOKEN, AAD credentials)
+- Phase 6.4 (Hockney): Run `azure-validate` skill against this Bicep before deploying
+- Phase 6.5 (Fenster): `azd up` execution once secrets are in place
+- After deploy: Update Entra App redirect URI with live SWA hostname
+
+
+
+**Phase 5 automation shipped:**
+- Added `scripts/normalize-manifest.mjs` to enforce deterministic `content-index.json` ordering and formatting.
+- Added workflow `.github/workflows/normalize-content-manifest.yml` for push, pull_request, and workflow_dispatch triggers tied to `content-index.json` and `content/**`.
+- Pull requests now fail when normalization drift is detected.
+- Pushes to the default branch auto-commit normalized output with guardrails:
+	- skip if actor is `github-actions[bot]`
+	- skip if no manifest diff
+
+**Normalization contract:**
+- Required root keys validated: `version`, `generatedAt`, `resources`, `categories`.
+- `categories` sorted by `name` (case-insensitive).
+- `resources` sorted by `uploadDate` DESC, then `title` ASC.
+- Output written with 2-space JSON indentation + trailing newline.
+
+**Local verification:**
+- Ran `node scripts/normalize-manifest.mjs` successfully (exit code 0).
+- Current baseline manifest categories normalized alphabetically.
