@@ -1,0 +1,44 @@
+{
+  "routes": [
+    {
+      "route": "/upload",
+      "allowedRoles": ["content-manager"]
+    },
+    {
+      "route": "/manage",
+      "allowedRoles": ["content-manager"]
+    },
+    {
+      "route": "/api/upload",
+      "allowedRoles": ["content-manager"],
+      "methods": ["POST"]
+    },
+    {
+      "route": "/api/resource/*",
+      "allowedRoles": ["content-manager"],
+      "methods": ["PUT", "DELETE"]
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/api/*", "/*.{css,js,png,jpg,svg,ico}"]
+  },
+  "responseOverrides": {
+    "401": {
+      "redirect": "/.auth/login/aad",
+      "statusCode": 302
+    }
+  },
+  "auth": {
+    "identityProviders": {
+      "azureActiveDirectory": {
+        "userDetailsClaim": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
+        "registration": {
+          "openIdIssuer": "https://login.microsoftonline.com/__TENANT_ID__",
+          "clientIdSettingName": "AAD_CLIENT_ID",
+          "clientSecretSettingName": "AAD_CLIENT_SECRET"
+        }
+      }
+    }
+  }
+}
