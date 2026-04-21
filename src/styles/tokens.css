@@ -1,1 +1,101 @@
-/* Design tokens — to be populated in a later task */
+/*
+=============================================================================
+COMPONENT:    Design Tokens
+FILE:         src/styles/tokens.css
+VERSION:      1.0.0
+AUTHOR:       McManus / AIB Contact Center Portal Team
+LAST UPDATED: 2026-04-21
+ENVIRONMENT:  React / Vite / Azure Static Web Apps
+
+------------------------------------------------------------------------------
+OVERVIEW
+------------------------------------------------------------------------------
+CSS custom properties for the entire application — colors, typography,
+spacing, borders, shadows, breakpoints, and z-index based on the Fluent UI /
+Dynamics 365 design system defined in the portal design document.
+
+------------------------------------------------------------------------------
+ARCHITECTURE
+------------------------------------------------------------------------------
+- Data Source:     Static design tokens (no runtime dependency)
+- Auth Model:      None
+- Rendering:       Consumed by all component CSS via var()
+
+------------------------------------------------------------------------------
+FEATURES
+------------------------------------------------------------------------------
+- Colors:          Full palette (primary, accent, surface, text, semantic)
+- Typography:      Font family, size scale (12–28px), weight scale
+- Spacing:         4px base grid → 4/8/12/16/24/32/48px
+- Borders:         Radius for buttons (2px) and cards (4px)
+- Shadows:         Card hover elevation
+- Breakpoints:     Mobile 320px / Tablet 768px / Desktop 1024px
+- Z-index:         Nav 100 / Modal 200 / Toast 300
+
+------------------------------------------------------------------------------
+NON-NEGOTIABLES
+------------------------------------------------------------------------------
+- Do NOT hardcode hex values in component files — always use var(--token)
+- Do NOT remove or rename existing tokens without a version bump
+=============================================================================
+*/
+
+:root {
+  /* ---- Colors: Brand ---- */
+  --color-primary:        #0078D4;
+  --color-primary-dark:   #106EBE;
+  --color-primary-darker: #005A9E;
+  --color-accent:         #00B4D8;
+
+  /* ---- Colors: Surface ---- */
+  --color-surface:        #FFFFFF;
+  --color-background:     #F3F2F1;
+  --color-border:         #E1DFDD;
+
+  /* ---- Colors: Text ---- */
+  --color-text-primary:   #201F1E;
+  --color-text-secondary: #605E5C;
+
+  /* ---- Colors: Semantic ---- */
+  --color-danger:         #D13438;
+  --color-success:        #107C10;
+  --color-info:           #0078D4;
+
+  /* ---- Typography ---- */
+  --font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+
+  --font-size-title:      28px;
+  --font-size-heading:    20px;
+  --font-size-card-title: 16px;
+  --font-size-body:       14px;
+  --font-size-caption:    12px;
+
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+
+  /* ---- Spacing (4px base grid) ---- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-12: 48px;
+
+  /* ---- Border Radius ---- */
+  --radius-button: 2px;
+  --radius-card:   4px;
+
+  /* ---- Shadows ---- */
+  --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+  /* ---- Breakpoints (reference only — use in media queries via raw values) ---- */
+  --bp-mobile:  320px;
+  --bp-tablet:  768px;
+  --bp-desktop: 1024px;
+
+  /* ---- Z-Index ---- */
+  --z-nav:   100;
+  --z-modal: 200;
+  --z-toast: 300;
+}

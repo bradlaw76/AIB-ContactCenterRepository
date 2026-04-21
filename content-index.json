@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "generatedAt": "2026-04-21T00:00:00Z",
+  "resources": [],
+  "categories": [
+    { "name": "Training", "order": 1 },
+    { "name": "Policies", "order": 2 },
+    { "name": "Tools", "order": 3 },
+    { "name": "Reference", "order": 4 }
+  ]
+}

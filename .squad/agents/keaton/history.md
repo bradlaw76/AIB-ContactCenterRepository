@@ -10,3 +10,5 @@
 - **Branch:** 001-contact-center-portal
 
 ## Learnings
+
+- 2026-04-21: Frontend foundation work started — McManus on styles/contexts/Shell, Fenster on API layer. No decisions yet — inbox to be merged when agents complete.

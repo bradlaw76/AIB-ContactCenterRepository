@@ -1,0 +1,12 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "GITHUB_TOKEN": "<your-github-pat>",
+    "GITHUB_OWNER": "bradlaw76",
+    "GITHUB_REPO": "AIB-ContactCenterRepository",
+    "AZURE_STORAGE_CONNECTION_STRING": "<your-connection-string>",
+    "STORAGE_CONTAINER_NAME": "resources"
+  }
+}

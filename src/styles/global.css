@@ -1,1 +1,189 @@
-/* Global styles — to be populated in a later task */
+/*
+=============================================================================
+COMPONENT:    Global Styles
+FILE:         src/styles/global.css
+VERSION:      1.0.0
+AUTHOR:       McManus / AIB Contact Center Portal Team
+LAST UPDATED: 2026-04-21
+ENVIRONMENT:  React / Vite / Azure Static Web Apps
+
+------------------------------------------------------------------------------
+OVERVIEW
+------------------------------------------------------------------------------
+CSS reset, base typography, layout utilities, responsive resource grid,
+focus ring accessibility styles, and screen-reader-only utility class for the
+entire application.
+
+------------------------------------------------------------------------------
+ARCHITECTURE
+------------------------------------------------------------------------------
+- Data Source:     CSS custom properties from tokens.css
+- Auth Model:      None
+- Rendering:       Loaded globally via main.tsx import chain
+
+------------------------------------------------------------------------------
+FEATURES
+------------------------------------------------------------------------------
+- CSS Reset:         box-sizing, margin, padding, font inheritance
+- Base styles:       body background, font, color
+- Typography utils:  .text-title, .text-heading, .text-card-title,
+                     .text-body, .text-caption
+- Layout utils:      .container (max-width 1200px, centered)
+- Grid:              .resource-grid (3→2→1 col responsive CSS Grid)
+- Accessibility:     Focus ring (2px #0078D4, 2px offset), .sr-only
+
+------------------------------------------------------------------------------
+NON-NEGOTIABLES
+------------------------------------------------------------------------------
+- All color values must reference CSS custom properties, not hex literals.
+- Do NOT add component-specific styles here — use component CSS modules.
+=============================================================================
+*/
+
+@import './tokens.css';
+
+/* ---- Reset ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-family);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ---- Focus ring (WCAG 2.1 AA) ---- */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ---- Typography utilities ---- */
+.text-title {
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.2;
+  color: var(--color-text-primary);
+}
+
+.text-heading {
+  font-size: var(--font-size-heading);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.3;
+  color: var(--color-text-primary);
+}
+
+.text-card-title {
+  font-size: var(--font-size-card-title);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.4;
+  color: var(--color-text-primary);
+}
+
+.text-body {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.5;
+  color: var(--color-text-primary);
+}
+
+.text-caption {
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+/* ---- Layout utilities ---- */
+.container {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
+
+/* ---- Responsive resource grid: 3→2→1 columns ---- */
+.resource-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 1023px) {
+  .resource-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .resource-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- Screen-reader only ---- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- TopNav responsive: show hamburger + hide links/search on mobile ---- */
+@media (max-width: 767px) {
+  .topnav__hamburger {
+    display: flex !important;
+  }
+
+  .topnav__links,
+  .topnav__search {
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .topnav__hamburger {
+    display: none !important;
+  }
+}
