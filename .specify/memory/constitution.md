@@ -1,50 +1,116 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+  Sync Impact Report
+  ==================
+  Version change: N/A → 1.0.0
+  Modified principles: N/A (initial ratification)
+  Added sections:
+    - Core Principles (4 principles: Code Quality, Testing Standards,
+      User Experience Consistency, Performance Requirements)
+    - Quality Gates
+    - Development Workflow
+    - Governance
+  Removed sections: None
+  Templates requiring updates:
+    - .specify/templates/plan-template.md ✅ aligned (Constitution Check
+      section already present)
+    - .specify/templates/spec-template.md ✅ aligned (user scenarios,
+      requirements, and edge cases sections present)
+    - .specify/templates/tasks-template.md ✅ aligned (test tasks and
+      phased structure present)
+  Follow-up TODOs: None
+-->
+
+# AIB-ContactCenter Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Code Quality (NON-NEGOTIABLE)
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+- All code MUST pass static analysis and linting before merge.
+- Functions and modules MUST follow the single-responsibility principle;
+  no function exceeds 50 lines without explicit justification.
+- All public APIs MUST have clear, typed signatures. Implicit `any`
+  types are forbidden.
+- Dead code, commented-out code, and unused imports MUST be removed
+  before merge.
+- Every PR MUST be reviewed by at least one other contributor. Self-
+  merges are prohibited on shared branches.
+- Naming MUST be descriptive and consistent: no abbreviations beyond
+  well-known domain terms.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. Testing Standards (NON-NEGOTIABLE)
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+- Every user story MUST have corresponding acceptance tests that
+  validate its scenarios before the story is considered complete.
+- Unit tests MUST cover all business logic; minimum 80% line coverage
+  on new code.
+- Integration tests are REQUIRED for: API contract changes, cross-
+  service communication, database migrations, and shared schema
+  updates.
+- Tests MUST be deterministic — no flaky tests allowed. A failing test
+  blocks the pipeline until fixed or removed with documented rationale.
+- Test names MUST describe the behaviour under test, not the
+  implementation (e.g., "rejects expired tokens" not "test_validate").
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### III. User Experience Consistency
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+- UI components MUST follow a shared design system or component library;
+  ad-hoc styling is prohibited for customer-facing surfaces.
+- All user-facing text MUST be externalized for localization readiness;
+  hard-coded strings in UI code are forbidden.
+- Error messages shown to users MUST be actionable and human-readable;
+  raw stack traces or internal codes MUST NOT be exposed.
+- Navigation patterns, layout grids, and interaction paradigms MUST be
+  consistent across all application surfaces.
+- Accessibility MUST meet WCAG 2.1 AA as a minimum; new UI features
+  MUST include keyboard navigation and screen-reader support.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### IV. Performance Requirements
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+- API endpoints MUST respond within 200 ms at the 95th percentile
+  under expected load.
+- Client-side pages MUST achieve a Largest Contentful Paint (LCP) under
+  2.5 seconds on a baseline 4G connection.
+- Database queries MUST NOT perform full table scans on tables exceeding
+  10 000 rows without an index strategy documented in the PR.
+- Memory usage per service instance MUST stay below the allocated limit;
+  memory leaks identified in profiling MUST be resolved before release.
+- Performance regression tests MUST be included for any change to
+  hot-path code or data-access layers.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Quality Gates
+
+- **Merge gate**: All CI checks (lint, type-check, unit tests,
+  integration tests) MUST pass before a PR can be merged.
+- **Release gate**: Performance benchmarks MUST show no regression
+  beyond 5% on key metrics before a release is tagged.
+- **Accessibility gate**: Automated accessibility scans MUST pass;
+  manual accessibility review is REQUIRED for new interaction patterns.
+- **Coverage gate**: Overall test coverage MUST NOT decrease; new files
+  MUST meet the 80% minimum.
+
+## Development Workflow
+
+- Feature work MUST follow the branch-per-feature model using the
+  naming convention `###-feature-name`.
+- Every feature MUST have a specification (`spec.md`) approved before
+  implementation begins.
+- Code reviews MUST verify compliance with all four Core Principles;
+  reviewers MUST flag violations explicitly.
+- Continuous integration runs on every push; broken builds MUST be
+  fixed or reverted within 4 hours.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+- This constitution supersedes all other development practices and
+  guidelines. In case of conflict, constitution principles prevail.
+- Amendments require: (1) a written proposal with rationale,
+  (2) review by at least two contributors, and (3) an updated version
+  number following semantic versioning.
+- Version policy: MAJOR for principle removals or incompatible
+  redefinitions, MINOR for new principles or material expansions,
+  PATCH for clarifications and typo fixes.
+- Compliance review MUST occur at the start of every feature plan
+  (Constitution Check in plan.md) and again before release.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-04-21 | **Last Amended**: 2026-04-21
