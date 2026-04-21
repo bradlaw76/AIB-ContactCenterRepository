@@ -14,6 +14,7 @@ How to decide who handles what.
 | Quality review | Hockney 🧪 | Test coverage, edge case validation, accessibility checks |
 | Scope & priorities | Keaton 🏗️ | What to build next, trade-offs, decisions |
 | Session logging | Scribe 📋 | Automatic — never needs routing |
+| Async issue work (bugs, tests, small features) | @copilot 🤖 | Well-defined tasks matching capability profile |
 
 ## Issue Routing
 
