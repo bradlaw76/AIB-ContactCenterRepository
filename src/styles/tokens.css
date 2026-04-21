@@ -60,6 +60,14 @@ NON-NEGOTIABLES
   --color-danger:         #D13438;
   --color-success:        #107C10;
   --color-info:           #0078D4;
+  --color-type-video:     #00B4D8;
+  --color-type-document:  #0078D4;
+  --color-type-image:     #498205;
+  --color-type-text:      #FFFFFF;
+  --color-type-video-overlay: rgba(0, 120, 212, 0.24);
+  --color-overlay:        rgba(32, 31, 30, 0.45);
+  --color-skeleton-base:  #F3F2F1;
+  --color-skeleton-highlight: #E1DFDD;
 
   /* ---- Typography ---- */
   --font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;

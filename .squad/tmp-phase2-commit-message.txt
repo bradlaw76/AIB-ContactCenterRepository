@@ -1,0 +1,5 @@
+feat: shared components, all pages, and test foundation (Phase 2)
+
+- Include TypeBadge, ResourceCard, InlineViewer, EmptyState, LoadingSkeletons
+- Include all 6 pages (Home, Browse, Search, Resource Detail, Upload, Manage)
+- Include test foundation with 32 tests passing
